@@ -1,0 +1,14 @@
+digraph G {
+    size="10,10";
+    label="services register"
+    node [colorscheme=paired12, color=1, style=filled];
+    register_center[label="注册中心", color=5, shape="record"]
+    consumer[label="服务消费者", color=4, shape="record"]
+    service[label="服务提供者", color=2, shape="record"]
+    consumer->register_center[label="2.订阅"]
+    register_center->consumer[label="5.通知" style=dashed]
+
+    consumer -> service [label="4.调用"]
+    consumer -> consumer [label="3.缓存" style=dashed]
+    service -> register_center [label="1.注册"]
+}

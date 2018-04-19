@@ -1,0 +1,12 @@
+digraph G {
+    size="6,6";
+    label="services register"
+    node [colorscheme=paired12, color=1, style=filled];
+    registrator[label="registrator", color=2, shape="record"]
+    service1[label="service_web1", color=4, shape="record"]
+    service2[label="service_web2", color=4, shape="record"]
+    service3[label="service_web3", color=4, shape="record"]
+    register_center[label="注册中心", color=5, shape="record"]
+    {service1 service2 service3} -> registrator [label="监控",color="red",style="dashed"]
+    registrator->register_center[label="注册",color="red",style="dashed"]
+}
