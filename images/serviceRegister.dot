@@ -6,7 +6,17 @@ digraph G {
     service1[label="service_web1", color=4, shape="record"]
     service2[label="service_web2", color=4, shape="record"]
     service3[label="service_web3", color=4, shape="record"]
-    register_center[label="注册中心", color=5, shape="record"]
+    // register_center[label="注册中心", color=5, shape="record"]
+    consul_node1[label="consul_node1(leader)", color=7]
+    consul_node2[label="consul_node2", color=7]
+    consul_node3[label="consul_ndoe3", color=7]
     {service1 service2 service3} -> registrator [label="监控",color="red",style="dashed"]
-    registrator->register_center[label="注册",color="red",style="dashed"]
+    registrator->consul_node1[label="注册",color="red",style="dashed"]
+    consul_node1 -> consul_node2 -> consul_node3 [dir=both style=dashed color=blue]
+    subgraph cluster_clu {
+        label="注册中心集群"
+        consul_node1
+        consul_node2
+        consul_node3
+    }
 }

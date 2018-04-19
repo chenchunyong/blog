@@ -44,10 +44,75 @@
 
 ## 服务注册
 
-服务注册的架构如下：
+本文服务注册的架构如下：
 
 ![services register](images/serviceRegister.png?raw=true)
 
 利用Registrator来监控每个web server的状态，当有新的service web加入的时候，registator会把service web注册到注册中心，当web server下线的时，reigstrator也会通知注册中心下线服务，整个过程自动化的，无须人工干预。
 
+## 单机示例
 
+示例环境：
+系统：macos
+docker: 17.09.1-ce
+docker-compose:1.17.1
+
+### 1. 搭建consul集群、Registrator监控
+
+随便找个目录，创建模板文件`docker-compose.yml`
+
+```Dockerfile
+version: '3.0'
+
+services:
+  # consul server，对外暴露的ui接口为8500，只有在3台consul服务器的情况下集群才起作用
+  consulserver:
+    image: progrium/consul:latest
+    hostname: consulserver
+    ports:
+      - "8300"
+      - "8400"
+      - "8500:8500"
+      - "53"
+    command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=3
+
+  # consul server1在consul server服务起来后，加入集群中
+  consulserver1:
+    image: progrium/consul:latest
+    hostname: consulserver1
+    depends_on: 
+      - "consulserver"
+    ports:
+      - "8300"
+      - "8400"
+      - "8500"
+      - "53"
+    command: -server -data-dir /tmp/consul -join consulserver
+
+  # consul server2在consul server服务起来后，加入集群中
+  consulserver2:
+    image: progrium/consul:latest
+    hostname: consulserver2
+    depends_on: 
+      - "consulserver"
+    ports:
+      - "8300"
+      - "8400"
+      - "8500"
+      - "53"
+    command: -server -data-dir /tmp/consul -join consulserver
+  # 监听容器中暴露的端口，一定有新的端口，注册到注册中心
+  registrator:
+    image: gliderlabs/registrator:master
+    hostname: registrator
+    depends_on: 
+      - "consulserver"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"
+    command: -internal consul://consulserver:8500
+
+
+
+
+
+```
