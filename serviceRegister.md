@@ -165,7 +165,8 @@ bb55908aab39 |nodeservicetestweb_web_3
 ![consulUI3](images/consulServiceUI3.png?raw=true)
 
 经过验证服务停止后自动通知到注册中心下线服务。
-2. 验证集群节点挂掉
+
+2. 验证consul集群可用性
 
 运行`docker ps`命令，可以看到三个consul server容器Id以及name：
 
