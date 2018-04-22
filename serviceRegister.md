@@ -55,7 +55,7 @@
 
 ![services register](images/serviceRegister.png?raw=true)
 
-利用Registrator来监控每个web server的状态，当有新的service web加入的时候，registator会把service web注册到consul cluster，当web server下线的时，reigstrator也会通知consul cluster下线服务，整个过程自动化的，无须人工干预。
+利用Registrator来监控每个web server的状态，当有新的service web加入的时候，registator会把service web注册到consul cluster，当web server下线的时，reigstrator也会通知consul cluster下线服务，整个过程自动化的，无须人工干预。
 
 示例环境：
 系统：macos；
@@ -121,7 +121,7 @@ services:
 
 ![consulUI1](images/consulServiceUI1.png?raw=true)
 
-三台consul server 对应ip分别为：
+三台consul server 对应ip分别为：
 name | ip
 ---- | ---
 consulserver |172.22.0.2
@@ -173,7 +173,7 @@ bb55908aab39 |nodeservicetestweb_web_3
 
 ![consulUI3](images/consulServiceUI3.png?raw=true)
 
-经过验证，下载服务后，consul cluster会把相应的服务对应的信息移除
+经过验证，下载服务后，consul cluster会把相应的服务对应的信息移除
 
 #### 验证consul cluster可用性
 
