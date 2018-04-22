@@ -23,9 +23,9 @@
 
 **服务消费者**：在微服务的治理框架，服务之间的调用不再通过具体实例地址访问，而是向服务名发起调用实现。如上述例子，在注册中心注册A服务后，访问A服务的的调用方法就变为`http://A服务/xxxx`,通过以下的步骤，在真正发起请求时，把A服务替换为服务实例地址。
 
-1. 服务消费者从服务消费者从订阅注册中心获取A服务所有实例地址；
+1. 服务消费者从服务消费者从订阅注册中心获取A服务所有实例地址；
 
-2. 根据获取的实例地址通过负载均衡（后续有时间会写文章详细说明）的策略获取合适的Ip地址与端口，假设获取到的实例地址为：192.168.1.82:3000；
+2. 根据获取的实例地址通过负载均衡（后续有时间会写文章详细说明）的策略获取合适的Ip地址与端口，假设获取到的实例地址为：192.168.1.82:3000；
 
 3. 把A服务地址替换为192.168.1.82:3000。
 
@@ -62,7 +62,7 @@
 docker: 17.09.1-ce；
 docker-compose:1.17.1。
 
-### 1. 首先搭建consul cluster、Registrator监控
+### 1. 首先搭建consul cluster、Registrator监控
 
 在示例目录下，创建模板文件`docker-compose.yml`，源码见：[docker-compose.consul.yml](https://github.com/chenchunyong/node-service-test-web/blob/master/docker-compose.consul.yml)
 
@@ -117,7 +117,7 @@ services:
     command: -internal consul://consulserver:8500
 ```
 
-进入模板目录，运行 `docker-compose up -d` 启动服务。在浏览器输入`http://127.0.0.1:8500/ui/#/dc1/nodes`，可以看到consul server 服务起来了。
+进入模板目录，运行 `docker-compose up -d` 启动服务。在浏览器输入`http://127.0.0.1:8500/ui/#/dc1/nodes`，可以看到consul server 服务起来了。
 
 ![consulUI1](images/consulServiceUI1.png?raw=true)
 
@@ -167,9 +167,9 @@ containerId | name
 f16933416321 |nodeservicetestweb_web_2
 bb55908aab39 |nodeservicetestweb_web_3
 
-2. 下线nodeservicetestweb_web_1。
+2. 下线nodeservicetestweb_web_1。
 
-运行`docker stop 6c7701d39184` ，下线nodeservicetestweb_web_1，发现ip为`172.22.0.7`服务器信息已经从consul cluster中移除了 。
+运行`docker stop 6c7701d39184` ，下线nodeservicetestweb_web_1，发现ip为`172.22.0.7`服务器信息已经从consul cluster中移除了 。
 
 ![consulUI3](images/consulServiceUI3.png?raw=true)
 
@@ -187,10 +187,10 @@ afaed8bfb66a |nodeservicetestweb_consulserver1_1
 8a3b8d25d060 |nodeservicetestweb_consulserver2_1
 be9508b34527 |nodeservicetestweb_consulserver_1
 
-运行`docker stop be9508b34527`， ，暂停consulserver（leader）节点后，http://127.0.0.1:8500/ui 已经不能访问了，这是因为我们对外只暴露了consulserver的8500端口，consulserver1，consulserver2没有对外暴露可访问的端口。
+运行`docker stop be9508b34527`，暂停consulserver（leader）节点后，http://127.0.0.1:8500/ui 已经不能访问了，这是因为我们对外只暴露了consulserver的8500端口，consulserver1，consulserver2没有对外暴露可访问的端口。
 虽然通过UI的方式无法查看consul cluster 的状态，不过我们可以进入容器查看集群的状态。
 
-运行`docker logs afaed8bfb66a` 查看日志可得到虽然暂停consulserver服务，但是 consulserver1与consulserver2会进行重新选举，consulserver1被选为主节点。
+运行`docker logs afaed8bfb66a` 查看日志可得到虽然暂停consulserver服务，但是 consulserver1与consulserver2会进行重新选举，consulserver1被选为主节点。
 
 ```shell
     2018/04/20 12:22:50 [INFO] raft: Node at 172.22.0.5:8300 [Leader] entering Leader state
@@ -213,7 +213,7 @@ be9508b34527 |nodeservicetestweb_consulserver_1
 
 ## 总结 && 参考
 
-通过上述的示例，我们已经在单机环境下服务注册功能，并验证consul 节点的高可用性。当然本示例比较简单，只是在单机环境下，且不涉及到 consul client的情况。在多机器的环境下配置的其实跟单机差别不是很大，建议大家自己配置。
+通过上述的示例，我们已经在单机环境下服务注册功能，并验证consul 节点的高可用性。当然本示例比较简单，只是在单机环境下，且不涉及到consul client的情况。在多机器的环境下配置的其实跟单机差别不是很大，建议大家自己配置。
 
 参考：
 
