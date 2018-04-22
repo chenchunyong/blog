@@ -50,19 +50,19 @@
 
 ## 示例
 
-示例中包含3台consul node构成的集群，1台registrator监控服务，3台service web 提供服务。
+示例中包含3台consul node构成consul cluster，1台registrator监控服务，3台service web 提供服务。
 具体架构如下：
 
 ![services register](images/serviceRegister.png?raw=true)
 
-利用Registrator来监控每个web server的状态，当有新的service web加入的时候，registator会把service web注册到注册中心，当web server下线的时，reigstrator也会通知注册中心下线服务，整个过程自动化的，无须人工干预。
+利用Registrator来监控每个web server的状态，当有新的service web加入的时候，registator会把service web注册到consul cluster，当web server下线的时，reigstrator也会通知consul cluster下线服务，整个过程自动化的，无须人工干预。
 
 示例环境：
 系统：macos；
 docker: 17.09.1-ce；
 docker-compose:1.17.1。
 
-### 1. 首先搭建consul集群、Registrator监控
+### 1. 首先搭建consul cluster、Registrator监控
 
 在示例目录下，创建模板文件`docker-compose.yml`，源码见：[docker-compose.consul.yml](https://github.com/chenchunyong/node-service-test-web/blob/master/docker-compose.consul.yml)
 
@@ -76,7 +76,7 @@ services:
     hostname: consulserver
     ports:
       - "8300"
-      - "8400" 
+      - "8400"
       - "8500:8500"
       - "53"
     command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=2
@@ -121,9 +121,16 @@ services:
 
 ![consulUI1](images/consulServiceUI1.png?raw=true)
 
-### 2. 启动service web服务
+三台consul server 对应ip分别为：
+name | ip
+---- | ---
+consulserver |172.22.0.2
+consulserver1 |172.22.0.5
+consulserver2 |172.22.0.4
 
-创建新的目录，新建service web的模板文件`docker-compose.yml`，源码见：[docker-compose.web.yml](https://github.com/chenchunyong/node-service-test-web/blob/master/docker-compose.web.yml)
+### 2. 搭建service web服务
+
+创建新的目录，创建`docker-compose.yml`文件，源码见：[docker-compose.web.yml](https://github.com/chenchunyong/node-service-test-web/blob/master/docker-compose.web.yml)
 
 ```Dockerfile
 version: '3.0'
@@ -137,38 +144,42 @@ services:
       - "3000"
 ```
 
-`windavid/node-service-test-web`是用nodejs实现，里面包含了获取本地ip地址，加这个功能是为方便后面服务发现测试。
-代码参考：[app.js](https://github.com/chenchunyong/node-service-test-web/blob/master/app.js)
+image为`windavid/node-service-test-web`是我用nodejs实现，主要功能为获取本地ip地址，加这个功能是为方便后面服务发现测试。代码参考：[app.js](https://github.com/chenchunyong/node-service-test-web/blob/master/app.js)
 
-运行`docker-compose -f docker-compose.web.yml up -d  --scale web=3`启动3个service web服务。
+运行`docker-compose -f docker-compose.web.yml up -d  --scale web=3`启动服务，其中`--scale web=3`表示启动3台服务器，可根据实际情况进行扩展。
 
-可以看到3个`service-web`已注册到注册中心了。
+此时可以看到3台`service-web`已注册到consul cluster中了。
 
 ![consulUI2](images/consulServiceUI2.png?raw=true)
 
-至此我们的服务已经搭建完成，下一步我们验证服务自发现的功能。
+至此我们的服务已经搭建完成，下一步我们简单验证服务注册的功能。
 
 ### 3. 验证服务注册功能
 
-1. 验证service-web挂掉的情况
+#### 验证service-web服务下线情况
 
-运行`docker ps`命令，可以看到三个service-web容器Id以及name：
+1. 找到测试要下线的web，例如我们要下线nodeservicetestweb_web_1。
 
+运行`docker ps`命令，3台service-web信息：
 containerId | name
----- | ---
+---- | ---| ---
 6c7701d39184 |nodeservicetestweb_web_1
 f16933416321 |nodeservicetestweb_web_2
 bb55908aab39 |nodeservicetestweb_web_3
 
-运行`docker stop 6c7701d39184` ，停止掉服务后，IP为`172.22.0.7` nodeservicetestweb_web_2已经下线了。
+2. 下线nodeservicetestweb_web_1。
+
+运行`docker stop 6c7701d39184` ，下线nodeservicetestweb_web_1，发现ip为`172.22.0.7`服务器信息已经从consul cluster中移除了 。
 
 ![consulUI3](images/consulServiceUI3.png?raw=true)
 
-经过验证服务停止后自动通知到注册中心下线服务。
+经过验证，下载服务后，consul cluster会把相应的服务对应的信息移除
 
-2. 验证consul集群可用性
+#### 验证consul cluster可用性
 
-运行`docker ps`命令，可以看到三个consul server容器Id以及name：
+1. 停止consul cluster主节点，本文中的leader节点为：consulserver。
+
+运行`docker ps`命令，3台consul server对应容器Id以及name：
 
 containerId | name
 ---- | ---
@@ -176,10 +187,10 @@ afaed8bfb66a |nodeservicetestweb_consulserver1_1
 8a3b8d25d060 |nodeservicetestweb_consulserver2_1
 be9508b34527 |nodeservicetestweb_consulserver_1
 
-运行`docker stop be9508b34527` ，停掉leader节点后，http://127.0.0.1:8500/ui 已经不能访问了，
-通过对外暴露8500的端口不能访问，但是不影响到consul集群的功能，在consulserver节点挂掉后，consulserver1，consulserver2会经过选举，选出主节点，我们来验证下。
+运行`docker stop be9508b34527`， ，暂停consulserver（leader）节点后，http://127.0.0.1:8500/ui 已经不能访问了，这是因为我们对外只暴露了consulserver的8500端口，consulserver1，consulserver2没有对外暴露可访问的端口。
+虽然通过UI的方式无法查看consul cluster 的状态，不过我们可以进入容器查看集群的状态。
 
-运行`docker logs afaed8bfb66a` 查看日志可得到`consulserver1`被选为主节点。
+运行`docker logs afaed8bfb66a` 查看日志可得到虽然暂停consulserver服务，但是 consulserver1与consulserver2会进行重新选举，consulserver1被选为主节点。
 
 ```shell
     2018/04/20 12:22:50 [INFO] raft: Node at 172.22.0.5:8300 [Leader] entering Leader state
@@ -188,6 +199,8 @@ be9508b34527 |nodeservicetestweb_consulserver_1
     2018/04/20 12:22:50 [INFO] raft: pipelining replication to peer 172.22.0.2:8300
     2018/04/20 12:22:50 [INFO] consul: New leader elected: consulserver1
 ```
+
+2. 验证service-web是否是可访问
 
 运行`docker exec -it afaed8bfb66a /bin/bash`进入到consulserver1容器中，查看下service-web注册的服务是否可以用。
 在consulserver1容器中运行命令`curl 127.0.0.1:8500/v1/catalog/service/service-web` 发现服务的节点仍然存在。结果如下：
