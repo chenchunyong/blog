@@ -124,6 +124,7 @@ services:
 ![consulUI1](images/consulServiceUI1.png?raw=true)
 
 三台consul server 对应ip分别为：
+
 name | ip
 ---- | ---
 consulserver |172.22.0.2
