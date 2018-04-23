@@ -163,8 +163,9 @@ image为`windavid/node-service-test-web`是我用nodejs实现，主要功能为�
 1. 找到测试要下线的web，例如我们要下线nodeservicetestweb_web_1。
 
 运行`docker ps`命令，3台service-web信息：
+
 containerId | name
----- | ---| ---
+---- | ---
 6c7701d39184 |nodeservicetestweb_web_1
 f16933416321 |nodeservicetestweb_web_2
 bb55908aab39 |nodeservicetestweb_web_3
