@@ -5,3 +5,5 @@
 ## 服务发现
 
 [基于Docker+Consul+Registrator+Nodejs实现服务治理（一）](https://github.com/chenchunyong/microservices/blob/master/serviceRegister.md)
+
+[基于Docker+Consul+Registrator+Nodejs实现服务治理（二）](https://github.com/chenchunyong/microservices/blob/master/serviceFind.md)

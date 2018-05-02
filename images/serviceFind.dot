@@ -6,7 +6,7 @@ digraph G {
     service1[label="service_web1", color=4, shape="record"]
     service2[label="service_web2", color=4, shape="record"]
     service3[label="service_web3", color=4, shape="record"]
-    serviceGateway[label="service gateway", color=8, shape="record"]
+    serviceGateway[label="api gateway", color=8, shape="record"]
     consul_node1[label="consul_node1(leader)", color=7]
     consul_node2[label="consul_node2", color=7]
     consul_node3[label="consul_ndoe3", color=7]
