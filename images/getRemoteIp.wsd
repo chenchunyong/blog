@@ -1,0 +1,12 @@
+@startuml
+
+title 调用 api gateway getRemoteIp 时序图
+client -> apiGateway: 访问 /service-web/getRemoteIp
+apiGateway -> consulCluster: 根据service-web获取服务的注册的服务器信息
+consulCluster -> apiGateway: 返回service-web的注册的服务器信息
+apiGateway -> apiGateway: 缓存service-web的注册服务器信息
+apiGateway -> apiGateway: 根据负载均衡策略获取具体请求的ip
+apiGateway -> serviceWeb: 对具体ip发起getRemoteIp请求
+serviceWeb -> apiGateway: 返回docker容器的ip地址
+apiGateway -> client:返回对应service-web的ip信息
+@enduml
