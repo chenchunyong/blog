@@ -1,8 +1,10 @@
-# microservices
+# blog
 
-微服务学习笔记
+随写工作中遇到的问题、学习的心得，于己总结回顾，与他分享讨论。
 
-## 服务发现
+## 微服务学习笔记
+
+### 1.服务发现
 
 [基于Docker+Consul+Registrator+Nodejs实现服务治理（一）](https://github.com/chenchunyong/microservices/blob/master/serviceRegister.md)
 

@@ -13,7 +13,7 @@
 
 先看整体流程：
 
-![services register](images/registerFlow.png?raw=true)
+![services register](../images/registerFlow.png?raw=true)
 
 **注册中心**：每个**服务提供者**向注册中心登记自己提供的服务，将服务名与主机IP、端口等一些附加信息告知服务中心，注册中心按服务名分类组织服务清单。如A服务运行在192.168.1.82:3000，192.168.1.83：3000实例上。那么维护的内容如下：
 
@@ -55,7 +55,7 @@
 示例中包含3台consul node构成consul cluster，1台registrator监控服务，3台service web 提供服务。
 具体架构如下：
 
-![services register](images/serviceRegister.png?raw=true)
+![services register](../images/serviceRegister.png?raw=true)
 
 利用Registrator来监控每个web server的状态，当有新的service web加入的时候，registator会把service web注册到consul cluster，当web server下线的时，reigstrator也会通知consul cluster下线服务，整个过程自动化的，无须人工干预。
 
@@ -121,7 +121,7 @@ services:
 
 进入模板目录，运行 `docker-compose up -d` 启动服务。在浏览器输入`http://127.0.0.1:8500/ui/#/dc1/nodes`，可以看到consul server 服务起来了。
 
-![consulUI1](images/consulServiceUI1.png?raw=true)
+![consulUI1](../images/consulServiceUI1.png?raw=true)
 
 三台consul server 对应ip分别为：
 
@@ -153,7 +153,7 @@ image为`windavid/node-service-test-web`是我用nodejs实现，主要功能为�
 
 此时可以看到3台`service-web`已注册到consul cluster中了。
 
-![consulUI2](images/consulServiceUI2.png?raw=true)
+![consulUI2](../images/consulServiceUI2.png?raw=true)
 
 至此我们的服务已经搭建完成，下一步我们简单验证服务注册的功能。
 
@@ -175,7 +175,7 @@ bb55908aab39 |nodeservicetestweb_web_3
 
 运行`docker stop 6c7701d39184` ，下线nodeservicetestweb_web_1，发现ip为`172.22.0.7`服务器信息已经从consul cluster中移除了 。
 
-![consulUI3](images/consulServiceUI3.png?raw=true)
+![consulUI3](../consulServiceUI3.png?raw=true)
 
 经过验证，下载服务后，consul cluster会把相应的服务对应的信息移除
 

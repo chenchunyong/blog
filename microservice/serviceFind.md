@@ -7,7 +7,7 @@
 
 ## 服务发现
 
-![services register](images/registerFlow.png?raw=true)
+![services register](../images/registerFlow.png?raw=true)
 
 根据上篇的流程图，服务发现功能包括：
 
@@ -29,13 +29,13 @@
 2. 多次请求返回不同的ip地址，则验证api gateway 负载均衡起作用
 
 先看示例部署图如下：
-![services register](images/serviceFind.png?raw=true)
+![services register](../images/serviceFind.png?raw=true)
 
 registratior监控service web，一旦service web 状态发生变化，通知consul cluster做出相应处理，api gateway 订阅consul cluster 的服务，根据负载均衡的策略，把请求转发到对应web处理。
 
 获取service web本地ip的时序图如下：
 
-![getRemoteIp](images/getRemoteIp.png?raw=true)
+![getRemoteIp](../images/getRemoteIp.png?raw=true)
 
 下面我们开始实现我们的功能。
 
