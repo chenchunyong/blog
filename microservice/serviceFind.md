@@ -23,7 +23,7 @@
 
 ## 示例
 
-为了验证服务发现机制，api gateway对外提供`getRemoteIp`方法，用来获取service web的本地ip地址，获取service web的ip的作用有两个：
+为了验证服务发现机制，api gateway对外提供`getRemoteIp`方法，用来获取service web的本地ip地址，获取service web的ip的作用有两个：
 
 1. 成功返回ip地址，则验证服务发现起作用
 2. 多次请求返回不同的ip地址，则验证api gateway 负载均衡起作用
@@ -31,7 +31,7 @@
 先看示例部署图如下：
 ![services register](../images/serviceFind.png?raw=true)
 
-registratior监控service web，一旦service web 状态发生变化，通知consul cluster做出相应处理，api gateway 订阅consul cluster 的服务，根据负载均衡的策略，把请求转发到对应web处理。
+registratior监控service web，一旦service web 状态发生变化，通知consul cluster做出相应处理，api gateway 订阅consul cluster 的服务，根据负载均衡的策略，把请求转发到对应web处理。
 
 获取service web本地ip的时序图如下：
 
@@ -161,7 +161,7 @@ class Watch {
 }
 ```
 
-由于nodejs是单线程的，需要额外启动一个子进程来监听服务的变化，一旦服务列表有变化，则把服务列表更新到缓存中，请看`app.js`:
+由于nodejs是单线程的，需要额外启动一个子进程来监听服务的变化，一旦服务列表有变化，则把服务列表更新到缓存中，请看`app.js`:
 
 ```js
 const Application = require('koa');
@@ -325,7 +325,7 @@ networks:
   app:
 ```
 
-运行以下命令，启动服务：
+运行以下命令，启动服务：
 
 ```shell
 docker-compose up -d --scale serviceweb=3
