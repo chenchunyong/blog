@@ -362,7 +362,7 @@ curl http://127.0.0.1:3000/service-web/getRemoteIp
 dev:watch 监听service-web内容有变化：{"name":"service-web","data":[{"Node":"consulserver","Address":"172.21.0.2","ServiceID":"registrator:gatewaytest_serviceweb_1:3000","ServiceName":"service-web","ServiceTags":null,"ServiceAddress":"172.21.0.7","ServicePort":3000},{"Node":"consulserver","Address":"172.21.0.2","ServiceID":"registrator:gatewaytest_serviceweb_3:3000","ServiceName":"service-web","ServiceTags":null,"ServiceAddress":"172.21.0.6","ServicePort":3000}]}
 ```
 
-发现ip为172.21.0.9的服务已经下载，且通知到订阅者。
+发现ip为172.21.0.9的服务已经下线，且通知到订阅者。
 
 ## 总结 && 参考
 
