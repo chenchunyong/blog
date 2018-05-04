@@ -3,7 +3,7 @@
 ## 前言
 
 基于上一篇[基于Docker+Consul+Registrator+Nodejs实现服务治理（一）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceRegister.md)
-我们已经实现服务注册。本篇文章我们着重实现服务发现。
+我们已经实现服务注册，本篇文章我们着重实现服务发现。
 
 ## 服务发现
 
@@ -23,7 +23,7 @@
 
 ## 示例
 
-为了验证服务发现机制，api gateway对外提供`getRemoteIp`方法，用来获取service web的本地ip地址。获取service web的ip的作用有两个：
+为了验证服务发现机制，api gateway对外提供`getRemoteIp`方法，用来获取service web的本地ip地址，获取service web的ip的作用有两个：
 
 1. 成功返回ip地址，则验证服务发现起作用
 2. 多次请求返回不同的ip地址，则验证api gateway 负载均衡起作用
@@ -61,7 +61,7 @@ docker-compose.yml ------ 服务编排
 
 ### 1. 服务发现，缓存服务地址
 
-涉及到核心的逻辑文件：`discovery.js`，代码如下：
+服务发现`discovery.js`，代码如下：
 
 ```js
 class Discovery {
@@ -118,7 +118,7 @@ class Discovery {
 
 监听服务节点，一旦发生变化，立即通知对应的订阅者，更新本地服务列表。
 
-先看监听服务节点的核心代码：`watch.js`:
+监听服务节点`watch.js`代码:
 
 ```js
 class Watch {
@@ -325,7 +325,7 @@ networks:
   app:
 ```
 
-运行以下命令，启动服务。
+运行以下命令，启动服务：
 
 ```shell
 docker-compose up -d --scale serviceweb=3
@@ -364,6 +364,10 @@ curl http://127.0.0.1:3000/service-web/getRemoteIp
 
 发现ip为172.21.0.9的服务已经下载，且通知到订阅者。
 
-## 总结
+## 总结 && 参考
 
-到此为止，我们已实现了服务的注册与发现。下篇我们介绍分布式服务中的服务跟踪
+到此为止，我们已实现了服务的注册与发现。下篇我们介绍分布式服务中的服务跟踪。
+
+参考：
+
+- [https://www.consul.io/docs/guides/index.html](https://www.consul.io/docs/guides/index.html)

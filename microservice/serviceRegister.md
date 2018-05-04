@@ -221,10 +221,11 @@ be9508b34527 |nodeservicetestweb_consulserver_1
 
 参考：
 
-[https://www.jianshu.com/p/f8746b81d65d](https://www.jianshu.com/p/f8746b81d65d)
-[https://www.jianshu.com/p/a4c04a3eeb57](https://www.jianshu.com/p/a4c04a3eeb57)[https://segmentfault.com/a/1190000007601338](https://segmentfault.com/a/1190000007601338)
-[https://blog.csdn.net/socho/article/details/75434733](https://blog.csdn.net/socho/article/details/75434733)
-[https://www.consul.io/docs/guides/index.html](https://www.consul.io/docs/guides/index.html)
+- [https://www.jianshu.com/p/f8746b81d65d](https://www.jianshu.com/p/f8746b81d65d)
+- [https://www.jianshu.com/p/a4c04a3eeb57](https://www.jianshu.com/p/a4c04a3eeb57)
+- [https://segmentfault.com/a/1190000007601338](https://segmentfault.com/a/1190000007601338)
+- [https://blog.csdn.net/socho/article/details/75434733](https://blog.csdn.net/socho/article/details/75434733)
+- [https://www.consul.io/docs/guides/index.html](https://www.consul.io/docs/guides/index.html)
 
 ## 后续
 
