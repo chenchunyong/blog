@@ -37,7 +37,7 @@ registratior监控service web，一旦service web 状态发生变化，通知co
 
 ![getRemoteIp](../images/getRemoteIp.png?raw=true)
 
-下面我们开始实现我们的功能。
+下面我们开始实现我们的功能。
 
 ### 源码代码地址与目录
 
@@ -235,7 +235,7 @@ async function getServiceHost(name) {
     //根据服务名称获取注册的服务信息，如果缓存中存在，则从缓存中获取，如果不存在则获取数据
     const services = await discovery.getService({service: name});
     random = Math.floor(Math.random() * (services.length));
-    //定义随机数，随机获取ip的负载均衡策略
+    //定义随机数，随机获取ip的负载均衡策略
     const host = services[random];
     debug(`service host ${services[random]}`)
     return host;
@@ -336,7 +336,7 @@ docker-compose up -d --scale serviceweb=3
 启动服务后，我们在注册中心发现service-web 对应的服务器ip分别为：
 172.21.0.6，172.21.0.7，172.21.0.9。
 
-### 1. 验证服务发现
+### 1. 验证服务发现
 
 如前面时序图所述，api gateway对外暴露`/service-web/getRemoteIp`来获取本地ip信息。
 
