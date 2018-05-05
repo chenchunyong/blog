@@ -113,7 +113,7 @@ class Discovery {
 
 1. 检查缓存中是否存在，如果存在，则从缓存中获取
 2. 如果不存在，则获取最新的服务列表
-3. 存储到缓存中
+3. 把从服务端的服务列表，存储到缓存中
 
 ### 2. 变更通知 && 更新本地服务列表
 
@@ -140,10 +140,12 @@ class Watch {
                 serviceWatch(service);
             });
         }
+        // 监听服务核心代码
         function serviceWatch(service) {
             const watch = consul.watch({method: consul.catalog.service.nodes, options: {
                     service
                 }});
+            // 监听服务如果发现，则触发回调方法
             watch.on('change', data => {
                 const result = {
                     name: service,
@@ -162,7 +164,7 @@ class Watch {
 }
 ```
 
-由于nodejs是单线程的，需要额外启动一个子进程来监听服务的变化，一旦服务列表有变化，则把服务列表更新到缓存中，请看`app.js`:
+由于nodejs是单线程的，需要额外启动一个子进程来监听服务的变化，一旦服务列表有变化，则把服务列表更新到缓存中，请看`app.js`代码:
 
 ```js
 const Application = require('koa');
@@ -224,6 +226,7 @@ router.get('/service-web/getRemoteIp', async(ctx, next) => {
     //获取具体ip信息
     const host = await getServiceHost('service-web');
     const fetchUrl = `http://${host}/getRemoteIp`;
+    // 获取到具体服务的ip信息
     const result = await request.get(fetchUrl);
     debug(`getRemoteIp:${result.text}`);
     ctx.body = result.text;
@@ -245,7 +248,8 @@ async function getServiceHost(name) {
 
 ## 部署服务
 
-根据前面提供部署图，完整的`docker-compose.yml`代码如下：
+根据前面提供部署图，我们来实现服务编排，
+完整的`docker-compose.yml`代码如下：
 
 ```Dockerfile
 
