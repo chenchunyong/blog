@@ -375,4 +375,4 @@ dev:watch 监听service-web内容有变化：{"name":"service-web","data":[{"Nod
 
 参考：
 
-- [https://www.consul.io/docs/guides/index.html](https://www.consul.io/docs/guides/index.html)
+- [https://github.com/jasonGeng88/blog/blob/master/201704/service_discovery.md](https://github.com/jasonGeng88/blog/blob/master/201704/service_discovery.md)
