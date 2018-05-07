@@ -175,7 +175,7 @@ bb55908aab39 |nodeservicetestweb_web_3
 
 运行`docker stop 6c7701d39184` ，下线nodeservicetestweb_web_1，发现ip为`172.22.0.7`服务器信息已经从consul cluster中移除了 。
 
-![consulUI3](../consulServiceUI3.png?raw=true)
+![consulUI3](../images/consulServiceUI3.png?raw=true)
 
 经过验证，下载服务后，consul cluster会把相应的服务对应的信息移除
 
