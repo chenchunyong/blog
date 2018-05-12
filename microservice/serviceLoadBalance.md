@@ -160,14 +160,14 @@ upstream app {
 ```
 
 upstream的ip与注册到consul的servic-web ip是一致的。
-说明nginx的动态配置功能是已经实现了。
+说明nginx的动态配置功能是已经实现了。
 下面让我们来验证服务治理的功能。
 
 ## 验证功能
 
 ### 1.验证服务发现
 
-多次运行以下代码来验证结果：
+多次运行以下代码来验证结果：
 
 ```bash
 curl http://127.0.0.1/getRemoteIp
@@ -185,7 +185,7 @@ curl http://127.0.0.1/getRemoteIp
 
 ### 2. 验证服务下线情况
 
-通过`docker stop` 的方式，下线ip为`172.26.0.8`的`service-web`的服务。
+通过`docker stop` 的方式，下线ip为`172.26.0.8`的`service-web`的服务。
 
 进入`nginx-consul-template`的容器中，运行以下命令，查看当前app.conf的配置。
 
