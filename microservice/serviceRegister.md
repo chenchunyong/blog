@@ -1,4 +1,4 @@
-# 基于Docker+Consul+Registrator+Nodejs实现服务治理（一）
+# 基于Docker实现服务治理（一）
 
 ## 前言
 

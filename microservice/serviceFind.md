@@ -1,8 +1,8 @@
-# 基于Docker+Consul+Registrator+Nodejs实现服务治理（二）
+# 基于Docker实现服务治理（二）
 
 ## 前言
 
-基于上一篇[基于Docker+Consul+Registrator+Nodejs实现服务治理（一）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceRegister.md)
+基于上一篇[基于Docker实现服务治理（一）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceRegister.md)
 我们已经实现服务注册，本篇文章我们着重实现服务发现。
 
 ## 服务发现
