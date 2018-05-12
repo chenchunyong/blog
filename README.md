@@ -8,3 +8,4 @@
 
 - [服务治理（一）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceRegister.md)
 - [服务治理（二）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceFind.md)
+- [服务治理（三）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceLoadBalance.md)
