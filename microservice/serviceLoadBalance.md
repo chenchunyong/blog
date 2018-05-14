@@ -37,7 +37,7 @@ Consul-Template特性
 
 ## 示例
 
-根据上述的部署图，对第二篇文章的`docker-compose.yml`改造成以下这样：
+对第二篇文章的`docker-compose.yml`改造成以下这样：
 
 ```Dockerfile
 
@@ -120,9 +120,44 @@ networks:
   app:
 ```
 
-新增了nginx-consul-template的服务配置，其中`lb`中的image的具体配置见：[nginx-consul-template](https://github.com/chenchunyong/docker-nginx-consul-template)。
+新增了lb的docker image，详细配置见：[nginx-consul-template](https://github.com/chenchunyong/docker-nginx-consul-template/blob/master/nginx.conf)。
 
-运行以下命令，启动服务：
+定义`service-web`的负载均衡配置，配置是动态从consul cluster 取得，见[nginx.conf](https://github.com/chenchunyong/docker-nginx-consul-template/blob/master/nginx.conf)。
+
+```nginx
+# 定义service-web的负载均衡，
+# 从consul cluster获取对应的注册服务器的ip与port
+# 监听consul cluster 服务变化，一旦发生变化会自动更新服务列表
+upstream app {
+  {{range service "service-web"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1;
+  {{else}}server 127.0.0.1:65535; # force a 502{{end}}
+}
+
+server {
+  listen 80 default_server;
+
+  location / {
+    proxy_pass http://app;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+}
+```
+
+一旦监听的服务列表发生变化，触发nginx重加载，见[consul-template.service](https://github.com/chenchunyong/docker-nginx-consul-template/blob/master/consul-template.service)
+
+```nginx
+
+#!/bin/sh
+exec consul-template \
+     -consul-addr=consul:8500 \
+     -template "/etc/consul-templates/nginx.conf:/etc/nginx/conf.d/app.conf:nginx -s reload"
+
+```
+
+
+下面让我们运行以下命令，启动服务：
 
 ```bash
 docker-compose up -d --scale serviceweb=3
@@ -132,14 +167,13 @@ docker-compose up -d --scale serviceweb=3
 
 ![consulloadbalance](../images/consullb1.png?raw=true)
 
-启动服务后，进入`nginx-consul-template`的容器中，运行以下命令，查看当前app.conf的配置。
+启动服务后，进入`nginx-consul-template`的容器中，运行以下命令，查看当前app.conf（生成image时，把nginx.conf更名为app.conf,具体代码见[Dockerfile](https://github.com/chenchunyong/docker-nginx-consul-template/blob/master/Dockerfile)）的配置。
 
 ```bash
 cat /etc/nginx/conf.d/app.conf
 ```
 
-发现定义在[nginx.conf](https://github.com/chenchunyong/docker-nginx-consul-template/blob/master/nginx.conf)
-中负载均衡配置的`upstream app`由
+发现定义在app.conf 中`upstream app`由
 
 ```nginx
 upstream app {
@@ -159,15 +193,15 @@ upstream app {
 }
 ```
 
-upstream的ip与注册到consul的servic-web ip是一致的。
-说明nginx的动态配置功能是已经实现了。
-下面让我们来验证服务治理的功能。
+upstream server ip与注册到consul的servic-web ip是一致的。
+说明nginx的动态配置功能是已经生效了。
 
 ## 验证功能
 
 ### 1.验证服务发现
 
-多次运行以下代码来验证结果：
+由于`servie-web` 暴露了`getRemoteIp`的方法，在nginx中配置文件中定义了service-web的透传方式，
+所以运行以下命令来验证获取远程服务器ip的功能。
 
 ```bash
 curl http://127.0.0.1/getRemoteIp
@@ -204,7 +238,7 @@ upstream app {
 
 发现ip为`172.26.0.8`的service-web已经从服务列表中删除了。
 
-验证服务下线通知功能通过
+验证服务下线通知功能通过。
 
 ## 总结 && 参考
 
