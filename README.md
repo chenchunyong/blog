@@ -15,3 +15,7 @@
 - [队列](https://github.com/chenchunyong/blog/blob/master/algorithm/%E9%98%9F%E5%88%97.md)
 
 - [字符串匹配算法](https://github.com/chenchunyong/blog/blob/master/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95.md)
+
+## 3. 技术周刊
+
+- 
