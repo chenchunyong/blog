@@ -2,10 +2,16 @@
 
 随写工作中遇到的问题、学习的心得，于己总结回顾，与他分享讨论。
 
-## 微服务学习笔记
-
-### 1.服务发现
+## 1. 微服务
 
 - [服务治理（一）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceRegister.md)
 - [服务治理（二）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceFind.md)
 - [服务治理（三）](https://github.com/chenchunyong/blog/blob/master/microservice/serviceLoadBalance.md)
+
+## 2. javascript 算法与数据结构
+
+- [线性表](https://github.com/chenchunyong/blog/blob/master/algorithm/%E7%BA%BF%E6%80%A7%E8%A1%A8.md)
+- [栈](https://github.com/chenchunyong/blog/blob/master/algorithm/%E6%A0%88.md)
+- [队列](https://github.com/chenchunyong/blog/blob/master/algorithm/%E9%98%9F%E5%88%97.md)
+
+- [字符串匹配算法](https://github.com/chenchunyong/blog/blob/master/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95.md)
