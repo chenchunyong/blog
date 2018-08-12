@@ -18,6 +18,8 @@
 
 - [线索二叉树的实现](https://github.com/chenchunyong/blog/blob/master/algorithm/%E7%BA%BF%E7%B4%A2%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0.md)
 
+- [二叉排序树的实现](https://github.com/chenchunyong/blog/blob/master/algorithm/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0.md)
+
 ## 3. 技术周刊
 
 - [技术周刊-2018年07月22](https://github.com/chenchunyong/blog/blob/master/weekArticle/%E6%8A%80%E6%9C%AF%E5%91%A8%E5%88%8A-2018%E5%B9%B407%E6%9C%8822.md)
