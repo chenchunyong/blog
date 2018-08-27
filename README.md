@@ -27,5 +27,5 @@
 - [技术周刊-2018年07月29](https://github.com/chenchunyong/blog/blob/master/weekArticle/%E6%8A%80%E6%9C%AF%E5%91%A8%E5%88%8A-2018%E5%B9%B407%E6%9C%8829.md)
 - [技术周刊-2018年08月05](https://github.com/chenchunyong/blog/blob/master/weekArticle/%E6%8A%80%E6%9C%AF%E5%91%A8%E5%88%8A-2018%E5%B9%B408%E6%9C%8805.md)
 - [技术周刊-2018年08月12](https://github.com/chenchunyong/blog/blob/master/weekArticle/%E6%8A%80%E6%9C%AF%E5%91%A8%E5%88%8A-2018%E5%B9%B408%E6%9C%8812.md)
-
 - [技术周刊-2018年08月19](https://github.com/chenchunyong/blog/blob/master/weekArticle/%E6%8A%80%E6%9C%AF%E5%91%A8%E5%88%8A-2018%E5%B9%B408%E6%9C%8819.md)
+- [技术周刊-2018年08月26](https://github.com/chenchunyong/blog/blob/master/weekArticle/%E6%8A%80%E6%9C%AF%E5%91%A8%E5%88%8A-2018%E5%B9%B408%E6%9C%8826.md)
