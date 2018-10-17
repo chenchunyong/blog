@@ -1,4 +1,4 @@
-# 深入理解 http2.0
+# 理解 http2.0
 
 ## http1.1 存在的问题
 
@@ -42,8 +42,8 @@ HTTP/2.0规定了在客户端和服务器端会使用并且维护「首部表」
 
 ## 参考
 
-[HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html)
-[HTTP/2 简介](https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn)
-[HTTP/2 服务器推送（Server Push）教程](http://www.ruanyifeng.com/blog/2018/03/http2_server_push.html)
-[HTTP/2 幕后原理](https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html)
-[http2 协议](https://www.jianshu.com/p/47d02f10757f)
+- [HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html)
+- [HTTP/2 简介](https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn)
+- [HTTP/2 服务器推送（Server Push）教程](http://www.ruanyifeng.com/blog/2018/03/http2_server_push.html)
+- [HTTP/2 幕后原理](https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html)
+- [http2 协议](https://www.jianshu.com/p/47d02f10757f)
