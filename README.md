@@ -21,6 +21,8 @@
 - [二叉排序树的实现](https://github.com/chenchunyong/blog/blob/master/algorithm/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0.md)
 - [平衡二叉树的实现](https://github.com/chenchunyong/blog/blob/master/algorithm/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0.md)
 
+- [十大经典排序](https://github.com/chenchunyong/blog/blob/master/algorithm/%E6%8E%92%E5%BA%8F.md)
+
 ## 前端
 
 - [理解http2](https://github.com/chenchunyong/blog/blob/master/web/http2.md)
